@@ -1,7 +1,12 @@
 const router = require("express").Router();
 let Appointment = require("../models/appointment.model");
 
+router.route("/user/:id").get((req, res) => {
+   Appointment.find({ user: req.params.id })
+    .then((item) => res.status(200).json(item))
+    .catch((e) => res.status(400).json(e));
 
+});
 
 router.route("/new").post((req, res) => {
   const date = req.body.date;
