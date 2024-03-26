@@ -7,6 +7,13 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/item/:id").get((req, res) => {
+  Item.find({ _id: req.params.id })
+   .then((item) => res.status(200).json(item))
+   .catch((e) => res.status(400).json(e));
+
+});
+
 router.route("/item").post((req, res) => {
   const itemName = req.body.itemName;
   const description = req.body.description;
