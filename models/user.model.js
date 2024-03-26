@@ -1,17 +1,15 @@
-import mongoose from "mongoose";
-
+//import mongoose from "mongoose";
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
    userName: {type: String, required: true},
-   password: {type: String},
-    updated: { type: Date, default: Date.now() },
-    created: { type: Date, default: Date.now() },
+   password: {type: String}
 
 }, {
     timestamps: true,
 });
 
-const User = mongoose.model('Appointment', userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

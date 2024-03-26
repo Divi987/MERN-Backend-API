@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-
+//import mongoose from "mongoose";
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const appointmentSchema = new Schema({
@@ -10,9 +10,7 @@ const appointmentSchema = new Schema({
       ],
     user: [
         {type: Schema.Types.ObjectId, ref: 'User'}
-      ],
-    updated: { type: Date, default: Date.now() },
-    created: { type: Date, default: Date.now() },
+      ]
 
 }, {
     timestamps: true,
