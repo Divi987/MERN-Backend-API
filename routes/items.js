@@ -23,13 +23,6 @@ const itemDetails = async (req, res, next) => {
   }
 }
 router.route("/item/:id").get(verifyToken, itemDetails);
-/*  (req, res) => {
-  console.log(req.params.id)
-  Item.find({ _id: req.params.id })
-   .then((item) => res.status(200).json(console.log(item)))
-   .catch((e) => res.status(400).json(e));
-
-});*/
 
 router.route("/item").post((req, res) => {
   const itemName = req.body.itemName;
