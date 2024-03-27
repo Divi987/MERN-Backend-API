@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let Item = require("../models/item.model");
+const verifyToken = require('./auth.middleware');
 
 router.route("/").get((req, res) => {
   Item.find()
@@ -7,12 +8,28 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/item/:id").get((req, res) => {
+const itemDetails = async (req, res, next) => {
+  const {id} = req.params;
+
+  try {
+    const item = await Item.find({_id: id});
+    if(!item || item.length === 0) {
+      return res.status(403).json({message: "Item not Found"})
+    } else {
+      return res.status(200).json(item);
+    }
+  }catch (e) {
+    return res.status(401).json('Error: ' + e.message);
+  }
+}
+router.route("/item/:id").get(verifyToken, itemDetails);
+/*  (req, res) => {
+  console.log(req.params.id)
   Item.find({ _id: req.params.id })
-   .then((item) => res.status(200).json(item))
+   .then((item) => res.status(200).json(console.log(item)))
    .catch((e) => res.status(400).json(e));
 
-});
+});*/
 
 router.route("/item").post((req, res) => {
   const itemName = req.body.itemName;
